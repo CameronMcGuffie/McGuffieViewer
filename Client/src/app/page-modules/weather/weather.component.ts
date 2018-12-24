@@ -12,6 +12,7 @@ export class WeatherComponent {
 
     title = 'Weather';
 
+    public base_uri;
     public date;
 
     public current_icon;
@@ -36,6 +37,13 @@ export class WeatherComponent {
     public sydney_wind_speed;
 
     public ngOnInit() {
+        this.doInit();
+    }
+
+    public doInit() {
+      var response = this.http.get("./assets/config.json").subscribe(data => {
+        this.base_uri = data['base_uri'];
+
         var _this = this;
 
         this.getWeather();
@@ -47,6 +55,7 @@ export class WeatherComponent {
         this.getDate();
 
         setInterval(function () { _this.getCurrentWeather(); }, 5000); 
+      });
     }
 
     public fnKtoC(k) {
