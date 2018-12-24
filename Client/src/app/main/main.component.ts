@@ -13,22 +13,32 @@ export class AppComponent {
 
   title = 'McGuffie Viewer';
 
-  public Background;
+  public background;
+  public base_uri;
+  public transition_time;
 
   public ngOnInit() {
-    var _this = this;
+    this.doInit();
+  }
 
-    this.getBackground();
+  public doInit() {
+    var response = this.http.get("./assets/config.json").subscribe(data => {
+      this.base_uri = data['base_uri'];
+      this.transition_time = data['transition_time'];
 
-    setInterval(function () { _this.getBackground(); }, 5000);
+      var _this = this;
+
+      this.getBackground();
+  
+      setInterval(function () { _this.getBackground(); }, this.transition_time);
+    });
   }
 
   public getBackground() {
-    var response = this.http.get('https://cameronmcguffie.com/json/photos.php').subscribe(data => {
-      this.Background = "https://cameronmcguffie.com/json/photos/" + data["background"];
-      //this.Background = this.sanitizer.bypassSecurityTrustStyle("url(\"https://cameronmcguffie.com/photos/\"" + data["background"] + ")");
-
-      //alert(this.Background);
+    var response = this.http.get(this.base_uri + 'photos.php').subscribe(data => {
+      this.background = this.base_uri + "photos/" + data["background"];
+      
+      console.log('Loading ' + this.background);
     });
   }
 

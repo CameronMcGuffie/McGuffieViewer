@@ -1,3 +1,4 @@
 {
-    "base_uri": "https://cameronmcguffie.com/json/"
+    "base_uri": "http://raspberrypi/",
+    "transition_time": 15000
 }
