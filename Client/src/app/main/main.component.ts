@@ -13,7 +13,7 @@ export class AppComponent {
 
   title = 'McGuffie Viewer';
 
-  private Background;
+  public Background;
 
   public ngOnInit() {
     var _this = this;
