@@ -2,8 +2,6 @@
     font-family: Arial, Helvetica, sans-serif;
     position: fixed;
     bottom: 0px;
-    width: 18em;
-    height: 18em;
     z-index: 30;
     margin: 0.5em;
 
@@ -14,18 +12,23 @@
 }
 
 .radarbg {
-    width: 16em;
-    height: 16em;
     margin: 1em;
 
     background-image: url("http://www.bom.gov.au/products/radar_transparencies/IDR733.background.png");
     background-size: cover;
 }
 
-.radarlocations {
-    width: 16em;
-    height: 16em;
+.radartopology {
+    background-image: url("http://www.bom.gov.au/products/radar_transparencies/IDR733.topography.png");
+    background-size: cover;
+}
 
+.radarrange {
+    background-image: url("http://www.bom.gov.au/products/radar_transparencies/IDR733.range.png");
+    background-size: cover;
+}
+
+.radarlocations {
     background-image: url("http://www.bom.gov.au/products/radar_transparencies/IDR733.locations.png");
     background-size: cover;
 }

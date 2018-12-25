@@ -14,7 +14,14 @@ export class BomComponent {
 
     public base_uri;
     public URL;
-    private counter;
+    public counter;
+
+    public radar_width;
+    public radar_height;
+    public radar_img_width;
+    public radar_img_height;
+
+    public radar_size;
 
     public ngOnInit() {
         this.doInit();
@@ -25,10 +32,31 @@ export class BomComponent {
         this.base_uri = data['base_uri'];
 
         this.counter = 0;
+
+        this.radar_width = "19em";
+        this.radar_height = "19em";
+        this.radar_img_width = "17em";
+        this.radar_img_height = "17em";
   
         var _this = this;
         setInterval(function () { _this.getBOM(); }, 500); 
       });
+    }
+
+    public switchRadar() {
+        if(!this.radar_size) {
+            this.radar_width = "60em";
+            this.radar_height = "60em";
+            this.radar_img_width = "58em";
+            this.radar_img_height = "58em";
+        } else {
+            this.radar_width = "19em";
+            this.radar_height = "19em";
+            this.radar_img_width = "17em";
+            this.radar_img_height = "17em";
+        }
+
+        this.radar_size = !this.radar_size;
     }
 
     public getBOM() {

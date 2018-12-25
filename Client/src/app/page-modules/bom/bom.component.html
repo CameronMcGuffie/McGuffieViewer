@@ -1,5 +1,9 @@
-<div class="radar">
-    <div class="radarbg">
-            <div class="radarlocations"><img src="{{URL}}" /></div>
+<div class="radar" [ngStyle]="{'width': radar_width, 'height': radar_height }">
+    <div class="radarbg" [ngStyle]="{'width': radar_img_width, 'height': radar_img_height }">
+        <div class="radartopology" [ngStyle]="{'width': radar_img_width, 'height': radar_img_height }">
+            <div class="radarrange" [ngStyle]="{'width': radar_img_width, 'height': radar_img_height }">
+                <div class="radarlocations" [ngStyle]="{'width': radar_img_width, 'height': radar_img_height }"><img src="{{URL}}" (click)="switchRadar()" [ngStyle]="{'width': radar_img_width, 'height': radar_img_height }" /></div>
+            </div>
+        </div>
     </div>
 </div>

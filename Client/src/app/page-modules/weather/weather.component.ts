@@ -14,6 +14,7 @@ export class WeatherComponent {
 
     public base_uri;
     public date;
+    public time;
 
     public current_icon;
     public current_temp;
@@ -36,26 +37,29 @@ export class WeatherComponent {
     public sydney_humidity;
     public sydney_wind_speed;
 
+    public melbourne_icon;
+    public melbourne_temp;
+    public melbourne_min_temp;
+    public melbourne_max_temp;
+    public melbourne_humidity;
+    public melbourne_wind_speed;
+
     public ngOnInit() {
         this.doInit();
     }
 
     public doInit() {
-      var response = this.http.get("./assets/config.json").subscribe(data => {
-        this.base_uri = data['base_uri'];
+        var response = this.http.get("./assets/config.json").subscribe(data => {
+            this.base_uri = data['base_uri'];
 
-        var _this = this;
+            var _this = this;
 
-        this.getWeather();
-        
-        this.getCurrentWeather();
-        this.getBrisbaneWeather();
-        this.getSydneyWeather();
+            this.getCurrentWeather();
+            this.getTime();
 
-        this.getDate();
-
-        setInterval(function () { _this.getCurrentWeather(); }, 5000); 
-      });
+            setInterval(function () { _this.getCurrentWeather(); }, 60000);
+            setInterval(function () { _this.getTime(); }, 1000);
+        });
     }
 
     public fnKtoC(k) {
@@ -64,32 +68,49 @@ export class WeatherComponent {
 
     // Taken from https://stackoverflow.com/questions/15397372/javascript-new-date-ordinal-st-nd-rd-th
     public nth(d) {
-        if (d > 3 && d < 21) return 'th'; 
+        if (d > 3 && d < 21) return 'th';
         switch (d % 10) {
-            case 1:  return "st";
-            case 2:  return "nd";
-            case 3:  return "rd";
+            case 1: return "st";
+            case 2: return "nd";
+            case 3: return "rd";
             default: return "th";
         }
+    }
+
+    public addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    public getTime() {
+        var d = new Date();
+        
+        var h = this.addZero(d.getHours());
+        var m = this.addZero(d.getMinutes());
+        var s = this.addZero(d.getSeconds());
+
+        this.time = h + ":" + m;
     }
 
     public getWeather() {
         var d = new Date();
         var entry = 0;
 
-        if(d.getHours() < 3) {
+        if (d.getHours() < 3) {
             entry = 0;
-        } else if(d.getHours() < 6) {
+        } else if (d.getHours() < 6) {
             entry = 1;
-        } else if(d.getHours() < 9) {
+        } else if (d.getHours() < 9) {
             entry = 2;
-        } else if(d.getHours() < 12) {
+        } else if (d.getHours() < 12) {
             entry = 3;
-        } else if(d.getHours() < 15) {
+        } else if (d.getHours() < 15) {
             entry = 4;
-        } else if(d.getHours() < 18) {
+        } else if (d.getHours() < 18) {
             entry = 5;
-        } else if(d.getHours() < 21) {
+        } else if (d.getHours() < 21) {
             entry = 6;
         } else {
             entry = 7;
@@ -102,10 +123,12 @@ export class WeatherComponent {
     }
 
     public getCurrentWeather() {
+        this.getDate();
         this.getWeather();
 
         this.getBrisbaneWeather();
         this.getSydneyWeather();
+        this.getMelbourneWeather();
 
         var response = this.http.get('https://api.openweathermap.org/data/2.5/weather?q=Townsville,AU&mode=json&units=metric&appid=1ad684713fec9a8a1cc7fffce6d210b1').subscribe(data => {
             this.current_icon = data['weather'][0]['icon'];
@@ -134,6 +157,17 @@ export class WeatherComponent {
             this.sydney_wind_speed = data['wind']['speed'];
             this.sydney_min_temp = Math.floor(data['main']['temp_min']);
             this.sydney_max_temp = Math.floor(data['main']['temp_max']);
+        });
+    }
+
+    public getMelbourneWeather() {
+        var response = this.http.get('https://api.openweathermap.org/data/2.5/weather?q=Melbourne,AU&mode=json&units=metric&appid=1ad684713fec9a8a1cc7fffce6d210b1').subscribe(data => {
+            this.melbourne_icon = data['weather'][0]['icon'];
+            this.melbourne_temp = Math.floor(data['main']['temp']);
+            this.melbourne_humidity = data['main']['humidity'];
+            this.melbourne_wind_speed = data['wind']['speed'];
+            this.melbourne_min_temp = Math.floor(data['main']['temp_min']);
+            this.melbourne_max_temp = Math.floor(data['main']['temp_max']);
         });
     }
 

@@ -1,5 +1,6 @@
 <div class="weather">
     <div class="date">{{date}}</div><br />
+    <div class="time">{{time}}</div>
     <div class="header">Townsville</div>
     <div class="temps">
         <div class="current_icon"><img src="http://openweathermap.org/img/w/{{current_icon}}.png" width="80em" /></div>
@@ -25,6 +26,15 @@
         <div class="stacked_temp">
                 <div class="sydney_min_temp">{{sydney_min_temp}}&#x2103; / {{sydney_max_temp}}&#x2103;</div>
                 <div class="sydney_min_temp">{{sydney_humidity}}% / {{sydney_wind_speed}}kph</div>
+        </div>
+    </div>
+    <div class="header">Melbourne</div>
+    <div class="temps">
+        <div class="current_icon"><img src="http://openweathermap.org/img/w/{{melbourne_icon}}.png" width="80em" /></div>
+        <div class="current_temp">{{melbourne_temp}}&#x2103;</div>
+        <div class="stacked_temp">
+                <div class="melbourne_min_temp">{{melbourne_min_temp}}&#x2103; / {{melbourne_max_temp}}&#x2103;</div>
+                <div class="melbourne_min_temp">{{melbourne_humidity}}% / {{melbourne_wind_speed}}kph</div>
         </div>
     </div>
 </div>

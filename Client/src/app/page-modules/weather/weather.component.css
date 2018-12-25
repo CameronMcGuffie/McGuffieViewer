@@ -4,7 +4,7 @@
     position: fixed;
     top: 0px;
     width: 18em;
-    height: 20em;
+    height: 28em;
     z-index: 30;
     margin: 0.5em;
     padding:0.5em;
@@ -26,6 +26,13 @@
 
 .date {
     text-align: center;
+}
+
+.time {
+    text-align: center;
+    font-size: 2em;
+    margin-top: -0.3em;
+    margin-bottom: 0.3em;
 }
 
 .stacked_temp {
